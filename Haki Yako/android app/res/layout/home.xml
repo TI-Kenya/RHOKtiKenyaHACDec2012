@@ -1,0 +1,95 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/ic_image"
+    tools:context=".MainActivity" >
+
+    
+
+ <RadioGroup
+      android:id="@+id/button_send"
+	          android:layout_width="fill_parent"
+	          android:layout_height="wrap_content"
+	          android:orientation="vertical">
+
+  <EditText
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10" 
+        android:textColor="#ffffff"
+        android:hint="@string/search">
+
+        <requestFocus />
+    </EditText>
+
+  
+    
+   <RadioButton
+        android:id="@+id/radioButton1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="@string/radioButton1" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="@string/radioButton2" />
+
+    <RadioButton
+        android:id="@+id/radioButton4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#ffffff"
+        android:text="@string/radioButton4" />
+
+    <RadioButton
+        android:id="@+id/radioButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="46dp"
+        android:textColor="#ffffff"
+        android:text="@string/radioButton5" />
+
+   <TextView
+       android:id="@+id/editText1"
+       android:layout_width="wrap_content"
+       android:layout_height="36dp"
+       android:textColor="#ffffff"
+       android:text="@string/editText1"
+       android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ratingBar2" />
+    
+    <Button
+        android:id="@+id/Profile"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Profile" />
+
+    <Button
+        android:id="@+id/complaints"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/complaints" />
+
+    <Button
+        android:id="@+id/positive"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/positive" />
+
+ 
+ </RadioGroup>
+
+
+</LinearLayout>

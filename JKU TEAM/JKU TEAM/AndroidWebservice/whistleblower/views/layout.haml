@@ -1,0 +1,59 @@
+!!! 5
+%html
+  %head
+    %meta{'charset' => 'utf-8'}
+    %meta{'name' => 'viewport', 'content' => 'width=device-width', 'initial-scale' => '1.0'}
+    %meta{'name' => 'description', 'content' => ''}
+    %meta{'name' => 'author', 'content' => '' }
+    %link{'rel' => 'shortcut icon', 'href' => '../images/favicon.ico'}
+    %link{'rel' => 'stylesheet', 'href' => '../css/bootstrap.min.css'}
+    %link{'rel' => 'stylesheet', 'href' => '../css/style.css'}
+    %link{'rel' => 'stylesheet', 'href' => '../css/bootstrap-responsive.min.css'}
+
+    / HTML5 shim, for IE6-8 support of HTML5 elements
+    /[if lt IE 9]
+      %script{'src' => 'http://html5shim.googlecode.com/svn/trunk/html5.js'}
+
+    %title WhistleBlower
+
+
+
+  %body
+    .navbar{'class' => 'navbar-inverse navbar-fixed-top' }
+      .navbar-inner
+        .container
+          %a{'class' => 'btn btn btn-navbar', 'data-toggle' => 'collapse', 'data-target' => '.nav-collapse'}
+            %span{'class' => 'icon-bar'}
+            %span{'class' => 'icon-bar'}
+            %span{'class' => 'icon-bar'}
+          %a{'class' => 'brand', 'href' => '/'} WhistleBlower
+          .nav-collapse{'class' => 'collapse'}
+            %ul{'class' => 'nav'}
+              %li
+                %a{'href' => '/report'} Report
+              %li
+                %a{'href' => '/about'} About
+              %li
+                %a{'href' => '/contact'} Contact Us
+            %form{'class' => 'navbar-form pull-right'}
+              %input{'class' => 'span2', 'type' => 'text', 'placeholder' => 'Email'}
+              %input{'class' => 'span2', 'type' => 'password', 'placeholder' => 'Password'}
+              %button{'type' => 'submit', 'class' => 'btn'} Sign in
+
+    = yield
+    /! end the main body
+
+
+    /! start the footer
+    %hr
+    .container
+      %p &copy; JKU 2012
+
+    /! end the footer
+
+    /! start of scripts
+    /
+      Le javascript
+    %script{ 'type' => 'text/javascript', 'src' => 'javascript/jquery.1.7.2.js'}
+    %script{ 'type' => 'text/javascript', 'src' => 'javascript/bootstrap.min.js'}
+    %script{ 'type' => 'text/javascript', 'src' => 'javascript/app.js'}

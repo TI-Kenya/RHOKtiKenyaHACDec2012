@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>RHOK Snake & Ladder</title>
+    <style>
+	
+	/* CUSTOM FONT */
+	@font-face {
+		font-family: 'EfonRegular';
+		src: url('font/EFON-webfont.eot');
+		src: local('EfonRegular'), url('font/EFON-webfont.woff') format('woff'), url('font/EFON-webfont.ttf') format('truetype'), url('font/EFON-webfont.svg#webfont') format('svg');
+		font-weight: normal;
+		font-style: normal;
+	}	
+	
+	body {
+	 
+	 margin: 0px auto;
+	 margin-left: 0px;
+	 background: #666;
+	  
+ 
+  background-repeat: repeat;
+	}
+
+	.button {
+		align: center;
+	 width: 400px;
+	 height: 100px;
+	 line-height: 100px;
+	 color: white;
+	 text-decoration: none;
+	 font-size: 50px;
+	 font-family: helvetica, arial;
+	 font-weight: bold;
+	 display: block;
+	 text-align: center;
+	 position: relative;
+
+	 /* BACKGROUND GRADIENTS */
+	 background: #014464;
+	 background: -moz-linear-gradient(top, #0D658E, #0C577A 50%, #014D71 51%, #003E5C);
+	 background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0E658E), color-stop(.5, #0C577A), color-stop(.5, #014D71), to(#003E5C)); 
+
+
+	 /* BORDER RADIUS */
+	 -moz-border-radius: 10px;
+	 -webkit-border-radius: 10px;
+	 border-radius: 10px;
+
+	 border: 1px solid #368DBE;
+	 border-top: 1px solid #c3d6df;
+
+
+	 /* TEXT SHADOW */
+
+	 text-shadow: 1px 1px 1px black;
+
+	 /* BOX SHADOW */
+	 -moz-box-shadow: 0 1px 3px black;
+	 -webkit-box-shadow: 0 1px 3px black;
+	 box-shadow: 0 1px 3px black;
+	}
+	
+	/* WHILE HOVERED */
+	.button:hover {
+		background: #014464;
+	 	background: -moz-linear-gradient(top, #0c5f85, #0b5273 50%, #024869 51%, #003853);
+	 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #0c5f85), color-stop(.5, #0b5273), color-stop(.51, #024869), to(#003853));
+	}
+	
+	/* WHILE BEING CLICKED */
+	.button:active {
+		-moz-box-shadow: 0 2px 6px black;
+		-webkit-box-shadow: 0 2px 6px black;
+	}
+	/* FONT GLYPH (MOSTLY FOR FUN) */
+	.button:before {
+		font-family: EfonRegular;
+		content: 'v';
+		color: #09232F;
+		font-size: 90px;
+		float: left;
+		margin-left: 35px;
+		margin-right: -10px;
+		text-shadow: 0 1px 0 #4190AF;
+	}
+	/* POP UP MESSAGE */
+	#popup {
+	border: 0px solid;
+	border-radius: 50px;
+	width: 500px;
+	height: 300px;
+	background-color: #FFA873;
+	position: absolute;
+	left: 25%;
+	right:25%;
+	top:25%;
+	bottom:25%;
+	z-index:5;
+	
+	}
+	#donebutton {
+	align:center;
+	}
+
+	#popup p {
+	margin: 50px;
+	font-family: "Comic Sans MS";
+	}
+	
+	#board {
+	float:left;
+	margin: 10px;
+	}
+	
+	#rightbar {
+	float:left;
+	margin: 10px;
+	}
+	
+	
+	</style>
+</head>
+<body>
+    <canvas id="board" width="679" height="679" align="center">
+    </canvas>
+	<div id="inner"></div>
+
+    <script type="text/javascript">        
+        //store the co-ordinates of all the squares.
+        var squares = new Array();
+
+        var canvas = document.getElementById("board");
+        var context = canvas.getContext("2d");
+        var contextb = canvas.getContext("2d");
+        var contextText = canvas.getContext("2d");
+        var contextTextb = canvas.getContext("2d");
+        var squareSize = canvas.height / 10;
+           
+        var _currentPos = 0;
+        var _currentPosb = 0;
+        
+        RenderSquareBoard();
+        RenderSnakeAndLadders();
+
+		function PopUpText(text)
+		{
+			div = document.getElementById('inner');
+			div.innerHTML = "<div id='popup'><p>" + text + "</p> <button type='button' id='donebutton' onClick='RemoveText()'>Continue</button></div>";
+		}
+		
+		function RemoveText()
+		{
+			div = document.getElementById('inner');
+			div.innerHTML = "";
+		}
+
+        function RenderSquareBoard() 
+        {        
+            var colorA = "white";
+            var colorB = "grey";
+
+            var initRow = 1; var totalRows = 10; var initcolumn = 1; var totalColumns = 10;
+
+            var x = 0; var y = canvas.height - squareSize;
+
+            var columnNr = 1; var leftToRight = true;
+            for (var row = initRow; row <= totalRows; row++) 
+            {
+                if (leftToRight) 
+                {
+                    x = 0;
+                }
+                else 
+                {
+                    x = canvas.width - squareSize;
+                }
+
+                for (var column = initcolumn; column <= totalColumns; column++) 
+                {
+                    if (columnNr % 2 == 0) 
+                    {
+                        context.fillStyle = colorA;
+                    }
+                    else 
+                    {
+                        context.fillStyle = colorB;
+                    }
+
+                    context.fillRect(x, y, squareSize, squareSize);
+
+                    squares[columnNr] = x.toString() + ',' + y.toString();
+
+                    contextText.font = "15px tahoma";
+                    contextText.fillStyle = "blue";
+                    contextText.fillText(columnNr, x, y + squareSize);
+                    
+                    var x1, y1
+                    if (leftToRight) 
+                    {
+                        x += squareSize;
+
+                        x1 = x + (squareSize / 2);
+                    }
+                    else 
+                    {
+                        x -= squareSize;
+                        x1 = x - (squareSize / 2);
+                    }
+
+                    y1 = y - (squareSize / 2);
+
+                    columnNr++;
+                }
+
+                y -= squareSize;
+                leftToRight = !leftToRight;
+            }
+        }
+
+        function RenderSnakeAndLadders()
+        {
+            var img = new Image();
+            img.onload = function () 
+            {
+            context.drawImage(img, 66, 23);
+            };
+            img.src = "Images/SnakeA.png";
+
+            var img1 = new Image();
+            img1.onload = function () 
+            {
+            context.drawImage(img1, 66, 166);
+            };
+            img1.src = "Images/SnakeB.png";
+
+            var img2 = new Image();
+            img2.onload = function () {
+                context.drawImage(img2, 57, 166);
+            };
+            img2.src = "Images/ladderA.png";
+  var img4 = new Image();
+            img4.onload = function () 
+            {
+                context.drawImage(img4, 0, 0);
+            };
+            img4.src = "Images/board.jpg";   
+            var img3 = new Image();
+            img3.onload = function () 
+            {
+                context.drawImage(img3, 322, 366);
+            };
+            img3.src = "Images/ladderA.png";            
+              
+        }
+
+        function initGame() 
+        {
+            window.location.reload();           
+        }
+ function nextMoveb() 
+        {
+           var newMoveb = GenerateRandomNumber(6);
+            alert("You got : " + newMoveb);
+
+            _currentPosb = _currentPosb + newMoveb;
+
+            switch (_currentPosb) 
+            {
+            //ladder
+            case 3:
+            _currentPosb = 20;
+            break;
+			//ladder
+            case 7:
+            _currentPosb = 13;
+            break;
+			//ladder
+            case 12:
+            _currentPosb = 28;
+            break;
+			//ladder
+            case 15:
+            _currentPosb = 34;
+            break;
+			//ladder
+            case 22:
+            _currentPosb = 37;
+            break;
+			//ladder
+            case 25:
+            _currentPosb = 73;
+            break;
+			//ladder
+            case 38:
+            _currentPosb = 59;
+            break;
+			//ladder
+            case 57:
+            _currentPosb = 76;
+            break;
+			//ladder
+            case 62:
+            _currentPosb = 78;
+            break;
+			//ladder
+            case 81:
+            _currentPosb = 98;
+            break;
+			//ladder
+            case 86:
+            _currentPosb = 97;
+            break;
+			//ladder
+            case 88:
+            _currentPosb = 91;
+            break;
+			
+           
+            //snake
+            case 6:
+            _currentPosb = 2;
+            break;
+            //snake
+            case 17:
+            _currentPosb = 1;
+            break;
+            //snake
+            case 32:
+            _currentPosb = 14;
+            break;
+            //snake
+            case 51:
+            _currentPosb = 47;
+            break;
+            //snake
+            case 54:
+            _currentPosb =30;
+            break;
+            //snake
+            case 58:
+            _currentPosb = 5;
+            break;
+            //snake
+            case 60:
+            _currentPosb = 18;
+            break;
+            //snake
+            case 67:
+            _currentPosb = 31;
+            break;
+            //snake
+            case 75:
+            _currentPosb = 37;
+            break;
+            //snake
+            case 82:
+            _currentPosb = 35;
+            break;
+            //snake
+            case 84:
+            _currentPosb = 13;
+            break;
+            //snake
+            case 87:
+            _currentPosb = 70;
+            break;
+            //snake
+            case 93:
+            _currentPosb = 50;
+            break;
+            //snake
+            case 96:
+            _currentPosb = 72;
+            break;
+            //snake
+            case 99:
+            _currentPosb = 61;
+            break;
+            
+			}
+ if (_currentPosb == 6)
+            {
+                PopUpText("For talking badly behind someone's back, the snake takes you back. Don't talk ill of others. It is not polite, it's hurtful.");
+                
+            } 
+			else if (_currentPosb == 17)
+            {
+                PopUpText("You told a lie to your family and friends! Know what that means: you slide down the snake!");
+               
+            }
+			else if (_currentPosb == 32)
+            {
+                aPopUpText("You started a fight with your friend in school! Bad... Very bad! Down the Snake!");
+             
+            }
+			else if (_currentPosb == 51)
+            {
+                PopUpText("You saw someone hurt a neighbour but you didn't report it. You need to look out for you neighbours. A ride down the snake might help you remember");
+               
+            }
+			else if (_currentPosb == 54)
+            {
+                PopUpText("You cheated in an exam in school. That is very dishonest. Don't Repeat it again! Down the snake!");
+               
+            }
+            else if (_currentPosb == 58)
+            {
+                PopUpText("You finished your sisters sweets without asking her. I know they were tasty but you should have asked your sister first. The snake will take you back.");
+              
+            }else if (_currentPosb == 60)
+            {
+                PopUpText("You argued over a toy with your brother or sister, instead of sharing the toy with them. Its always good to share. See you at the bottom of the snake!");
+               
+            }
+			else if (_currentPosb == 67)
+            {
+                PopUpText("You went to swim at the river instead of going to school! Good children always attend school. You know what this means");
+             
+            }
+			else if (_currentPosb == 75)
+            {
+                PopUpText("You answered back your parents! You must always be respectful to your parents. This means the snake takes you back...");
+               
+            }
+			else if (_currentPosb == 87)
+            {
+                PopUpText("You rode your bike without a helmet on the wrong side of the road! You should always stay safe. Hopefully you will remember next time.");
+               
+            }
+            else if (_currentPosb == 84)
+            {
+                PopUpText("You didn't keep a promise that you made to your friend. Good friends always keep their promises. The snake will teach you a lesson");
+              
+            }
+			else if (_currentPosb == 82)
+            {
+                PopUpText("You were gossiping about someone to others! Gossiping is very bad behaviour. Never do it.");
+               
+            }
+			else if (_currentPosb == 93)
+            {
+                aPopUpText("Your mother asked you to help her and you did not do it. You should always obey your parents. Down the Snake!");
+             
+            }
+			else if (_currentPosb == 96)
+            {
+                PopUpText("You gave your friend a loaf of bread to do your homework for you. That is not good behaviour, you should have done the work yourself. The snake will take you back");
+               
+            }
+			else if (_currentPosb == 99)
+            {
+                PopUpText("You were rude to to the old man that lives down the street. You should always treat your elders with respect. Slide down to the bottom of the snake.");
+               
+            }
+			
+	if (_currentPosb == 3)
+            {
+                PopUpText("You helped someone out even when they did not ask! That's very good of you. Here's a ladder to get you ahead.");
+                
+            } 
+			else if (_currentPosb == 7)
+            {
+                PopUpText("You kept a promise you made to your friends! Excellent! Up the Ladder.");
+               
+            }
+			else if (_currentPosb == 12)
+            {
+                PopUpText("You stood up to a bully at school and did not let him force you to do something. That's true courage. Here's a ladder up.");
+             
+            }
+			else if (_currentPosb == 15)
+            {
+                PopUpText("You helped your friends solve an argument. That's a good friend! This grants you a move up on the ladder.");
+               
+            }
+			else if (_currentPosb == 22)
+            {
+                PopUpText("You shared your sweets with your brothers and sisters. Good children always share. For that you get a reward.");
+               
+            }
+            else if (_currentPosb == 25)
+            {
+                PopUpText("You did all your homework and handed it in on time. Good work. This ladder will help you on your way");
+              
+            }else if (_currentPosb == 38)
+            {
+                PopUpText("You helped a policeman by showing him where a bad person went. That will help your neighbourhood. Up the ladder!");
+               
+            }
+			else if (_currentPosb == 57)
+            {
+                aPopUpText("You helped a friend you fell and got hurt to go to the clinic. That's a great friend. You know what this means. UP!");
+             
+            }
+			else if (_currentPosb == 62)
+            {
+                PopUpText("When your friend asked you to help him cheat in an exam, you told him no. It's always good to be honest. You get a ride up the ladder.");
+               
+            }
+			else if (_currentPosb == 81)
+            {
+                PopUpText("You did all your chores at home. Helpful children are a blessing to their parents. You're getting ahead in the game.");
+               
+            }
+            else if (_currentPosb == 86)
+            {
+                PopUpText("You scored a good mark in your last exam! Its always good to work hard for a good mark. Congratulations, you're moving up. ");
+              
+            }
+			else if (_currentPosb == 88)
+            {
+                PopUpText("You behaved well all week at home. Tha deserves a prize. Move up the ladder.");
+               
+            }
+			var coorintaesb = squares[_currentPosb];
+            coorintaesb = coorintaesb.split(',');
+
+            context.fillRect(coorintaesb[0], coorintaesb[1], squareSize, squareSize);
+
+            if (_currentPosb == 100)
+            {
+                alert("Congratulations, Player Two Has Won The Game :)");
+                initGame();
+            }
+
+			contextText.font = "15px tahoma";
+                    contextText.fillStyle = "blue";
+                    contextText.fillText(columnNr, x, y + squareSize);
+             
+			alert("Player's 1 Turn");
+                    
+			 }
+
+        function GenerateRandomNumber(max) 
+        {
+            // max dictates that the random number will fall between 0-max
+            var rnd = Math.floor(Math.random() * (max + 1))
+
+            if (rnd == 0)
+            {
+                rnd = 1;
+            }
+        return rnd;
+        }
+
+        function nextMove() 
+        {
+            var newMove = GenerateRandomNumber(6);
+            alert("You got : " + newMove);
+
+            _currentPos = _currentPos + newMove;
+
+            switch (_currentPos) 
+            {
+            //ladder
+            case 6:
+            _currentPos = 2;
+            break;
+			
+            //ladder
+            case 39:
+            _currentPos = 79;
+            break;
+            //snake
+            case 99:
+            _currentPos = 29;
+            break;
+            //snake
+            case 72:
+            _currentPos = 2;
+            break;             
+            }
+ if (_currentPos == 6)
+            {
+                PopUpText("For talking badly behind someone's back, the snake takes you back. Don't talk ill of others. It is not polite, it's hurtful.");
+                
+            } 
+			else if (_currentPos == 17)
+            {
+                PopUpText("You told a lie to your family and friends! Know what that means: you slide down the snake!");
+               
+            }
+			else if (_currentPos == 32)
+            {
+                aPopUpText("You started a fight with your friend in school! Bad... Very bad! Down the Snake!");
+             
+            }
+			else if (_currentPos == 51)
+            {
+                PopUpText("You saw someone hurt a neighbour but you didn't report it. You need to look out for you neighbours. A ride down the snake might help you remember");
+               
+            }
+			else if (_currentPos == 54)
+            {
+                PopUpText("You cheated in an exam in school. That is very dishonest. Don't Repeat it again! Down the snake!");
+               
+            }
+            else if (_currentPos == 58)
+            {
+                PopUpText("You finished your sisters sweets without asking her. I know they were tasty but you should have asked your sister first. The snake will take you back.");
+              
+            }else if (_currentPos == 60)
+            {
+                PopUpText("You argued over a toy with your brother or sister, instead of sharing the toy with them. Its always good to share. See you at the bottom of the snake!");
+               
+            }
+			else if (_currentPos == 67)
+            {
+                PopUpText("You went to swim at the river instead of going to school! Good children always attend school. You know what this means");
+             
+            }
+			else if (_currentPos == 75)
+            {
+                PopUpText("You answered back your parents! You must always be respectful to your parents. This means the snake takes you back...");
+               
+            }
+			else if (_currentPos == 87)
+            {
+                PopUpText("You rode your bike without a helmet on the wrong side of the road! You should always stay safe. Hopefully you will remember next time.");
+               
+            }
+            else if (_currentPos == 84)
+            {
+                PopUpText("You didn't keep a promise that you made to your friend. Good friends always keep their promises. The snake will teach you a lesson");
+              
+            }
+			else if (_currentPos == 82)
+            {
+                PopUpText("You were gossiping about someone to others! Gossiping is very bad behaviour. Never do it.");
+               
+            }
+			else if (_currentPos == 93)
+            {
+                aPopUpText("Your mother asked you to help her and you did not do it. You should always obey your parents. Down the Snake!");
+             
+            }
+			else if (_currentPos == 96)
+            {
+                PopUpText("You gave your friend a loaf of bread to do your homework for you. That is not good behaviour, you should have done the work yourself. The snake will take you back");
+               
+            }
+			else if (_currentPos == 99)
+            {
+                PopUpText("You were rude to to the old man that lives down the street. You should always treat your elders with respect. Slide down to the bottom of the snake.");
+               
+            }
+			
+	if (_currentPos == 3)
+            {
+                PopUpText("You helped someone out even when they did not ask! That's very good of you. Here's a ladder to get you ahead.");
+                
+            } 
+			else if (_currentPos == 7)
+            {
+                PopUpText("You kept a promise you made to your friends! Excellent! Up the Ladder.");
+               
+            }
+			else if (_currentPos == 12)
+            {
+                PopUpText("You stood up to a bully at school and did not let him force you to do something. That's true courage. Here's a ladder up.");
+             
+            }
+			else if (_currentPos == 15)
+            {
+                PopUpText("You helped your friends solve an argument. That's a good friend! This grants you a move up on the ladder.");
+               
+            }
+			else if (_currentPos == 22)
+            {
+                PopUpText("You shared your sweets with your brothers and sisters. Good children always share. For that you get a reward.");
+               
+            }
+            else if (_currentPos == 25)
+            {
+                PopUpText("You did all your homework and handed it in on time. Good work. This ladder will help you on your way");
+              
+            }else if (_currentPos == 38)
+            {
+                PopUpText("You helped a policeman by showing him where a bad person went. That will help your neighbourhood. Up the ladder!");
+               
+            }
+			else if (_currentPos == 57)
+            {
+                aPopUpText("You helped a friend you fell and got hurt to go to the clinic. That's a great friend. You know what this means. UP!");
+             
+            }
+			else if (_currentPos == 62)
+            {
+                PopUpText("When your friend asked you to help him cheat in an exam, you told him no. It's always good to be honest. You get a ride up the ladder.");
+               
+            }
+			else if (_currentPos == 81)
+            {
+                PopUpText("You did all your chores at home. Helpful children are a blessing to their parents. You're getting ahead in the game.");
+               
+            }
+            else if (_currentPos == 86)
+            {
+                PopUpText("You scored a good mark in your last exam! Its always good to work hard for a good mark. Congratulations, you're moving up. ");
+              
+            }
+			else if (_currentPos == 88)
+            {
+                PopUpText("You behaved well all week at home. Tha deserves a prize. Move up the ladder.");
+               
+            }
+			var coorintaes = squares[_currentPos];
+            coorintaes = coorintaes.split(',');
+
+            context.fillRect(coorintaes[0], coorintaes[1], squareSize, squareSize);
+
+            if (_currentPos == 100)
+            {
+                alert("Congratulations, Player One Has Won The Game :)");
+                initGame();
+            }
+			contextText.font = "15px tahoma";
+                    contextText.fillStyle = "red";
+                    contextText.fillText(columnNr, x, y + squareSize);
+             
+			alert("Player's 2 Turn");
+			
+			
+        }
+    </script>
+
+    </br>
+    <div id="rightbar">
+    <input type="button" value="New Game" onclick="initGame()" class="button"/>
+    </br>
+    <input class="button" type="button" id="nextMove" value="Roll Dice P1" onclick="nextMove()" />
+<input class="button" type="button" id="nextMoveb" value="Roll Dice P2" onclick="nextMoveb()" />
+</div>
+
+</body>
+</html>

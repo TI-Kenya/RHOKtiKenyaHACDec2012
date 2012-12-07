@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CCCCCC"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/ceo"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:hint="@string/ceo"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/name1"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="@string/name1"
+        android:textColor="#FF0000" />
+
+    <TextView
+        android:id="@+id/email1"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:hint="@string/email1"
+        android:textColor="#ff0000" />
+
+    <TextView
+        android:id="@+id/deputy"
+        android:layout_width="fill_parent"
+        android:layout_height="31dp"
+        android:hint="@string/deputy" />
+    
+    <TextView
+        android:id="@+id/senior"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:hint="@string/senior"
+         />
+
+    <TextView
+        android:id="@+id/namesenior"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:hint="@string/namesenior"
+        android:textColor="#000066" />
+
+    <TextView
+        android:id="@+id/senior2"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:hint="@string/senior2"
+        android:textColor="#ff0000" />
+
+    <TextView
+        android:id="@+id/deputy2"
+        android:layout_width="fill_parent"
+        android:layout_height="31dp"
+        android:hint="@string/deputy2" />
+    <TextView
+        android:id="@+id/deputy3"
+        android:layout_width="match_parent"
+        android:layout_height="31dp"
+        android:hint="@string/deputy3"
+        android:textColor="#ff0000" />
+
+    <TextView
+        android:id="@+id/deputy4"
+        android:layout_width="fill_parent"
+        android:layout_height="31dp"
+        android:hint="@string/deputy4" />
+
+    <Button
+        android:id="@+id/home1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/home1" />
+
+</LinearLayout>

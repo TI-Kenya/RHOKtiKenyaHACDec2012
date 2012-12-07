@@ -1,0 +1,21 @@
+%form.form-horizontal
+  %fieldset
+    .control-group
+      %label.control-label{ 'for' => 'message' } Message
+      .controls
+        %textarea.input-xlarge#message{'name' => 'message', 'type' => 'text', 'required' => 'required'}
+    .control-group
+      %label.control-label{ 'for' => 'sector' } Sector
+      .controls
+        %select#sector{'name' => 'sector'}
+          %option{'value' => 'no_choice', 'data-placeholder' => 'true'} Select a Sector
+          %option{'value' => 'health'} Health Sector
+          %option{'value' => 'security'} Security
+          %option{'value' => 'immigration'} Immigration
+    .control-group
+      %label.control-label{:for => 'source' } Source
+      .controls
+        %input.input-xlarge#source{:name => 'source', :type => 'text', 'required' => 'required'}
+    .control-group
+      .controls
+        %input.btn.btn-success{ 'type' => 'submit', 'value' => 'Report', 'onclick' => "postReport();"}

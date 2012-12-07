@@ -1,0 +1,18 @@
+.container#reports-div
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Message
+        %th Location
+        %th Timestamp
+        %th
+        %th
+    %tbody{'data-bind' => 'foreach: reportsSec'}
+      %tr
+        %td{ 'data-bind' => 'text: message'}
+        %td{ 'data-bind' => 'text: source'}
+        %td{ 'data-bind' => 'text: sent'}
+        %td
+          %a{ 'data-bind' => 'click: $root.saveReport'} Save
+        %td
+          %a{ 'data-bind' => 'click: $root.deleteReport'} Delete

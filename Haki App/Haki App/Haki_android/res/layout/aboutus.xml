@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent" android:background="@color/LightBlue">
+    <TextView android:text="	Haki is an android application that provides a platform for Kenyans to report malpractices in the society.It also elaborates on some of the common malpractices done." android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingTop="20dp" android:textColor="@color/Black" android:textSize="20sp"></TextView>
+    <ImageView android:layout_height="wrap_content" android:src="@drawable/humanrights" android:id="@+id/imageView1" android:layout_gravity="fill" android:layout_width="match_parent"></ImageView>
+    
+</LinearLayout>

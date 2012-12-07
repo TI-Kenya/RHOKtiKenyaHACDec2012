@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Haki Yako</string>
+    <string name="hello_world">Much Appreciation For Visiting The Boma Hotel. </string>
+    <string name="menu_settings">Settings</string>
+    <string name="feedback">Post Feedback</string>
+    <string name="cancel">Cancel</string>
+    <string name="name">List Perpetrators Name</string>
+    <string name="department">List Perpetrators Department</string>
+    <string name="email">List Your Email For Feedback</string>
+    <string name="phone">List Your Phone No [optional]</string>
+    <string name="complaint">Write Down Your complaint</string>
+    <string name="date">List date Of Complaint</string>
+    <string name="rate">Rate Service Delivery Of Institution</string>
+    <string name="ratingBar1">rate</string>
+    <string name="post">Post Feedback</string>
+    <string name="home">Home</string>
+    <string name="profile">View profile</string>
+    <string name="search">search organisation here</string>
+    <string name="radioButton1">Kenya Police</string>
+    <string name="radioButton2">Ministry Of Land</string>
+    <string name="radioButton3">IEBC</string>
+    <string name="radioButton4">The Boma Hotel</string>
+    <string name="radioButton5">Transparency International</string>
+    <string name="editText1">View Organisation ratings By Users</string>
+    <string name="Profile">View Organization Profile</string>
+    <string name="positive">Leave App</string>
+    <string name="complaints">Post Complaints</string>
+    <string name="ratingBar2">ratingBar2</string>
+    <string name="ceo">Commissioner of Police</string>
+    <string name="name1">Mathew Iteere Email : mathew@kenyapolice.com</string>
+    <string name="email1">Deputy Commissioner Of Police</string>
+    <string name="deputy">David Kamau Email : kamau@kenyapolice.com</string>
+    <string name="senior">Senior Deputy Commissioner</string>
+    <string name="namesenior">Owouor Peter Email : Owour@kenyapolice.org</string>
+    <string name="senior2">Assistant Commissioner of Police</string>
+    <string name="deputy2">Kalonzo M Email : Kalonzo@kenyapolice.com</string>
+    <string name="deputy3">Chief Inspector</string>
+    <string name="deputy4">Kanga Francis Email : kanga@police.com</string>
+    <string name="home1">Home</string>
+    <string name="ref">Thank You For Giving Us Your Feedback. Your Ref No Is 8095. You Will Recieve Feedback From Our Team. Have A Corruption Free Day.</string>
+    <string name="exit1">Exit Application</string>
+
+</resources>

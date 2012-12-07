@@ -1,0 +1,16 @@
+%div{"data-role" => "page"}
+  %div{"data-role" => "header"}
+    %h3 Make your Report
+  %div{"data-role" => "content"}
+    %form
+      %label{:for => "message"} Message:
+      %input#message{:name => "message", :type => "text"}/
+      %label{:for => "sector"} Sector:
+      %select#sector{:name => "sector"}
+        %option{"data-placeholder" => "true", :value => "no_choice"} Select a Sector
+        %option{:value => "health"} Health Sector
+        %option{:value => "security"} Security
+        %option{:value => "source"} Source
+      %label{:for => "source"} Source:
+      %input#source{:name => "source", :type => "text"}/
+      %input{:onclick => "postReport();", :type => "submit", :value => "Report", "data-inline" => "true"}

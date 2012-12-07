@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="com.haki"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name">
+        <activity android:name=".HakiActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <activity android:name=".Home"
+                  android:label="@string/app_name">
+                  
+            
+        </activity>
+        
+         <activity android:name=".Crimes"
+                  android:label="@string/app_name">
+            
+        </activity>
+         <activity android:name=".Report"
+                  android:label="@string/app_name">
+                  </activity>
+          <activity android:name=".Quicklinks"
+                  android:label="@string/app_name">
+                  </activity>
+                  
+         <activity android:name=".Aboutus"
+                  android:label="@string/app_name">
+                  </activity>
+         
+         <activity android:name=".Contacts"
+                  android:label="@string/app_name">
+                  </activity>
+        <activity android:name=".Police"
+                  android:label="@string/app_name">
+                  </activity>
+        <activity android:name=".Anticorruption"
+                  android:label="@string/app_name">
+                  </activity>
+        <activity android:name=".Khrc"
+                  android:label="@string/app_name">
+                  </activity>
+        <activity android:name=".Constitution"
+                  android:label="@string/app_name">
+                  </activity>
+        <activity android:name=".Ti"
+                  android:label="@string/app_name">
+                  </activity>
+         <activity android:name=".More"
+                  android:label="@string/app_name">
+                  </activity>
+        
+
+    </application>
+</manifest>

@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>PhoneGap</title>
+<script type="text/javascript" charset="utf-8" src="cordova-2.2.0.js"></script>
+<script src="jquery.mobile-1.2.0.min.css"></script>
+<script src="jquery-1.8.3.min.js"></script>
+<script src="jquery.mobile-1.2.0.min.js"></script>
+
+<script>
+
+$(document).ready(function() {
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
+	function postReport() {
+	    var message = $('#message').val();
+	    var sector = $('#sector').val();
+	    var source = $('#source').val();
+
+	    if(sector === 'no_choice') {
+	        alert("You must select a sector");
+	        return;
+	    }
+
+	    $.ajax({
+	        url: 'http://4kf3.localtunnel.com/api/report',
+	        type: 'post',
+	        data: { message: message, sector: sector, source: source }})
+	        .success(function (data) {
+	            alert("Your report has been filed. Thank you");
+	        })
+	        .error(function(data) {
+	            alert("Error sending report");
+	        });
+
+	}
+
+
+});
+
+
+function onDeviceReady() {
+	$.mobile.allowCrossDomainPage = true;
+}
+
+function postReport() {
+    var message = $('#message').val();
+    var sector = $('#sector').val();
+    var source = $('#source').val();
+
+    if(sector === 'no_choice') {
+        alert("You must select a sector");
+        return;
+    }
+
+    $.ajax({
+        url: 'http://575i.localtunnel.com/api/report',
+        type: 'post',
+        data: { message: message, sector: sector, source: source }})
+        .success(function (data) {
+            alert("Your report has been filed. Thank you");
+        })
+        .error(function(data) {
+            alert("There has been an error. Technical staff have been notified");
+        });
+
+}
+</script>
+</head>
+<body>
+	<div data-role='page'>
+		<div data-role="header">
+			<h3>Make your Report</h3>
+		</div> 
+		<div data-role="content">
+			<form>
+				<label for="message">Message:</label>
+				<input type="text" name="message" id="message" />
+				<label for="sector">Sector:</label>
+				<select id='sector' name='sector'>
+		          <option data-placeholder='true' value='no_choice'>Select a Sector</option>
+		          <option value='health'>Health Sector</option>
+		          <option value='security'>Security</option>
+		          <option value='source'>Source</option>
+		        </select>
+				<label for="source">Source:</label>
+				<input type="text" name="source" id="source" />
+				<input onclick='postReport();' type='submit' value='Report' />
+			</form>
+		</div> 
+	</div>
+</body>
+</html>
